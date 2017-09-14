@@ -14,14 +14,18 @@ namespace RegistrationAndLogin.Controllers
 {
     public class UserController : Controller
     {
+        #region Registration
+              
         //Registration Action   
         [HttpGet]
         public ActionResult Registration()
         {
             return View();
         }
+        #endregion
 
-        //Registration POST Action
+        #region Registration POST Action
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]User user)
@@ -32,7 +36,10 @@ namespace RegistrationAndLogin.Controllers
             //Model Validation
             if (ModelState.IsValid)
             {
-        #region Email Already Exists
+
+                #endregion
+
+                #region Email Already Exists
                 var isExist = IsEmailExist(user.Email);
                 if (isExist)
                 {
@@ -54,9 +61,13 @@ namespace RegistrationAndLogin.Controllers
 
                 #endregion
 
+                #region SetIsEmailVerifiedFalse
+
                 user.IsEmailVerified = false;
 
-        #region Save Data To DB
+                #endregion
+
+                #region Save Data To DB
 
                 using (MidasEMSEntities dc = new MidasEMSEntities())
                 {
@@ -185,6 +196,8 @@ namespace RegistrationAndLogin.Controllers
         }
         #endregion
 
+        #region IsEmailExist
+
         [NonAction]
         public bool IsEmailExist(string email)
         {
@@ -194,6 +207,10 @@ namespace RegistrationAndLogin.Controllers
                 return v != null;
             }
         }
+
+        #endregion
+
+        #region SendVerificationLinkEmail
 
         [NonAction]
         public void SendVerificationLinkEmail(string emailID, string activationCode)
@@ -240,5 +257,6 @@ namespace RegistrationAndLogin.Controllers
             smtp.Send(message);
 
         }
+        #endregion
     }
 }

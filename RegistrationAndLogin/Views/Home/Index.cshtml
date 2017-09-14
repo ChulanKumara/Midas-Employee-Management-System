@@ -1,17 +1,36 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = null;
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
 
-Welcome @HttpContext.Current.User.Identity.Name
 
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm"}))
-    {
-        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
-    }
-}
+<body>
+    <div>
+        Welcome @*@HttpContext.Current.User.Identity.Name*@
+
+        @if (Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+            {
+                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+            }
+        }
+    </div>
+
+<script src="~/scripts/jquery-3.1.1.min.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="https://cdn.datables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="~/scripts/jquery-ui-1.12.0.min.js"></script>
+
+</body>
+</html>
 
