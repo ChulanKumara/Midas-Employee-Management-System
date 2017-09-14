@@ -225,7 +225,7 @@ namespace RegistrationAndLogin.Controllers
 
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("sappakane@gmail.com", "Midas Safety IT Consultant Trainee");
+            var fromEmail = new MailAddress("a357fab789c2d68e3222047a40af2913", "Midas Safety IT Consultant Trainee");
 
             var toEmail = new MailAddress(emailID);
         

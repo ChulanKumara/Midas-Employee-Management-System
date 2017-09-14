@@ -14,13 +14,13 @@ namespace RegistrationAndLogin.Controllers
         {
             return View();
         }
-        public ActionResult GetEmployees()
-        {
-            using (MidasEMSEmployeeDataEntities dc = new MidasEMSEmployeeDataEntities())
-            {
-                var employees = dc.Employees.OrderBy(a => a.FirstName).ToList();
-                return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //public ActionResult GetEmployees()
+        //{
+        //    using (MidasEMSEmployeeDataEntities dc = new MidasEMSEmployeeDataEntities())
+        //    {
+        //        var employees = dc.Employees.OrderBy(a => a.FirstName).ToList();
+        //        return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
     }
 }
