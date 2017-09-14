@@ -121,7 +121,7 @@ namespace RegistrationAndLogin.Controllers
             return View();
         }
 
-        #endregion Verify Email Account 
+        #endregion 
 
 
         #region Login Action
@@ -225,11 +225,11 @@ namespace RegistrationAndLogin.Controllers
 
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("a357fab789c2d68e3222047a40af2913", "Midas Safety IT Consultant Trainee");
+            var fromEmail = new MailAddress("sappakane@gmail.com", "Midas Safety IT Consultant Trainee");
 
             var toEmail = new MailAddress(emailID);
         
-            var fromEmailPassword = "sappakane@123";
+            var fromEmailPassword = "a64cd9fcfd06b67367e54707494c139b";
 
             string subject = "Your account is successfully created!";
 
