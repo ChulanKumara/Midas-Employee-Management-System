@@ -243,6 +243,7 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>MidasEMSEmployeeData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extended\Employee.cs" />
     <Compile Include="Models\Extended\User.cs" />
     <Compile Include="Models\MidasEMSEmployeeData.Context.cs">
       <AutoGen>True</AutoGen>
@@ -299,6 +300,8 @@
     <Content Include="Views\User\VerifyAccount.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Save.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

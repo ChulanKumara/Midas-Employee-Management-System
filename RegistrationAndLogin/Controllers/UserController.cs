@@ -39,7 +39,7 @@ namespace RegistrationAndLogin.Controllers
 
                 #endregion
 
-                #region Email Already Exists
+        #region Email Already Exists
                 var isExist = IsEmailExist(user.Email);
                 if (isExist)
                 {
@@ -61,13 +61,13 @@ namespace RegistrationAndLogin.Controllers
 
                 #endregion
 
-                #region SetIsEmailVerifiedFalse
+        #region SetIsEmailVerifiedFalse
 
                 user.IsEmailVerified = false;
 
                 #endregion
 
-                #region Save Data To DB
+        #region Save Data To DB
 
                 using (MidasEMSEntities dc = new MidasEMSEntities())
                 {
@@ -122,7 +122,6 @@ namespace RegistrationAndLogin.Controllers
         }
 
         #endregion 
-
 
         #region Login Action
 

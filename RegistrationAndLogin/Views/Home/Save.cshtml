@@ -1,0 +1,40 @@
+﻿@model RegistrationAndLogin.Models.Employee
+
+<h2>Save</h2>
+
+@using (Html.BeginForm("save", "home", FormMethod.Post, new { id = "popupForm" }))
+{
+    if (Model != null && Model.EmployeeID > 0)
+    {
+        @Html.HiddenFor(a => a.EmployeeID)
+    }
+
+    <div class="form-group">
+        <label>First Name</label>
+        @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.FirstName)
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        @Html.TextBoxFor(a => a.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.LastName)
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        @Html.TextBoxFor(a => a.EmailID, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.EmailID)
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        @Html.TextBoxFor(a => a.City, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.City)
+    </div>
+    <div class="form-group">
+        <label>Country</label>
+        @Html.TextBoxFor(a => a.Country, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.Country)
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}

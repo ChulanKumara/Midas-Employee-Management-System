@@ -1,35 +1,166 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />*@
+    
+    <!-- Old cdn links -->
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />*@
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />*@
+
+    <!-- New cdn links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Imported from base folder -->
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 </head>
-
-
 <body>
-    <div>
-        Welcome @*@HttpContext.Current.User.Identity.Name*@
+<br />
+    
+    <!-- Welcome Info -->
+<div>
+    Welcome <strong>@HttpContext.Current.User.Identity.Name</strong>
 
-        @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("Logout", "User", FormMethod.Post, new {id = "logoutForm"}))
         {
-            using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
-            {
-                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
-            }
+            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
         }
-    </div>
+    }
+</div>
+    
+<!-- This is where the table starts -->
+<div style="width: 90%; margin: 0 auto" class="tablecontainer">
+    <a class="popup" href="/home/save/0" style="margin-bottom: 20px; margin-top: 20px;">Add New Employee</a>
+    <table id="myDatatable">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email ID</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!-- This is where the table ends -->
+    
+<!-- This is where the footer starts -->
+
+<footer style="position: absolute; bottom: 0; width: 100%;">
+    <p>Posted by: Chulan Kumara MSIT Trainee Consultant</p>
+    <p>
+        Contact information: <a href="chulan.kumara@midassafety.com">chulan.kumara@midassafety.com</a>.
+    </p>
+</footer>
+
+
+<!-- This is where the footer ends -->
+
+<!-- Jquery scripts imported from the scripts folder-->
 
 <script src="~/scripts/jquery-3.1.1.min.js"></script>
 <script src="~/scripts/jquery.validate.min.js"></script>
-<script src="https://cdn.datables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/scripts/jquery-ui-1.12.0.min.js"></script>
+    
+
+<!-- Bootstrap scripts that is responsible for the layout -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Start of fucntion that handles the json data from the database. -->
+    <!-- Start of fucntion that handles the json data from the database. -->
+    <script>
+        $(document).ready(function () {
+            var oTable = $('#myDatatable').DataTable({
+                "ajax": {
+                    "url": '/home/GetEmployees',
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "FirstName", "autoWidth": true },
+                    { "data": "LastName", "autoWidth": true },
+                    { "data": "EmailID", "autoWidth": true },
+                    { "data": "City", "autoWidth": true },
+                    { "data": "Country", "autoWidth": true },
+                    {
+                        "data": "EmployeeID", "width": "50px", "render": function (data) {
+                            return '<a class="popup" href="/home/save/' + data + '">Edit</a>';
+                        }
+                    },
+                    {
+                        "data": "EmployeeID", "width": "50px", "render": function (data) {
+                            return '<a class="popup" href="/home/delete/' + data + '">Delete</a>';
+                        }
+                    }
+                ]
+            });
+            $('.tablecontainer').on('click', 'a.popup', function(e) {
+                e.preventDefault();
+                OpenPopup($(this).attr('href'));
+            })
+            function OpenPopup(pageUrl) {
+                var $pageContent = $('<div/>');
+                $pageContent.load(pageUrl, function() {
+                    $('#popupForm', $pageContent).removeData('validator');
+                    $('#popupForm', $pageContent).removeData('unobtrusiveValidation');
+                    $.validator.unobtrusive.parse('form');
+                });
+
+                $dialog = $('<div class="popupwindow" style="overflow:auto"></div>')
+                    .html($pageContent)
+                    .dialog({
+                        draggable : false,
+                        autoOpen : false,
+                        resizable : false,
+                        model : true,
+                        title : "Popup Dialog",
+                        height : 550,
+                        width : 600,
+                        close : function() {
+                    $dialog.dialog('destroy').remove();
+                }
+                    })
+
+                $('.popupwindow').on('submit', '#popupForm', function(e) {
+
+                    var url = $('#popupForm')[0].action;
+                    $.ajax({
+                        type : "POST",
+                        url: url,
+                        data: $('#popupForm').serialize(),
+                        success : function(data) {
+                            $dialog.dialog('close');
+                            oTable.ajax.reload();
+                        }
+
+                })
+                    e.preventDefault();
+                })
+
+                $dialog.dialog('open');
+            }
+        })
+    </script>
+    <!-- End of fucntion that handles the json data from the database. -->
+
 
 </body>
 </html>

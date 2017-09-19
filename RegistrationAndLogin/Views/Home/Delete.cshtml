@@ -1,0 +1,31 @@
+﻿@model RegistrationAndLogin.Models.Employee
+    
+<h2>Delete Employee</h2>
+@using (Html.BeginForm("delete", "home", FormMethod.Post, new { id = "popupForm" }))
+{
+    @Html.HiddenFor(a => a.EmployeeID)
+    <div class="form-group">
+        <label>First Name</label>
+        <p>@Model.FirstName</p>
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        <p>@Model.LastName</p>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <p>@Model.EmailID</p>
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        <p>@Model.City</p>
+    </div>
+    <div class="form-group">
+        <label>Country</label>
+        <p>@Model.Country</p>
+    </div>
+    <div>
+        <input type="submit" value="Delete" />
+    </div>
+}
+
